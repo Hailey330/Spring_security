@@ -20,7 +20,7 @@ public class IndexController {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@Autowired
-	private UserRepository UserRepository; // DI - 메모리에 뜸
+	private UserRepository userRepository; // DI - 메모리에 뜸
 	
 	@GetMapping({ "", "/" })
 	public @ResponseBody String index() {
@@ -59,7 +59,7 @@ public class IndexController {
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setRole("ROLE_USER");
-		UserRepository.save(user);
+		userRepository.save(user);
 		return "redirect:/";
 	}
 	
