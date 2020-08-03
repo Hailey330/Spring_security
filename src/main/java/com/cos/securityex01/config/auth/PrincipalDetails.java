@@ -14,15 +14,15 @@ import lombok.Data;
 
 // Authentication 객체에 저장할 수 있는 유일한 타입 → 세션에 담음
 @Data
-public class PrincipalDetails implements UserDetails{ 
+public class PrincipalDetails implements UserDetails {
 
 	private User user;
-	
+
 	public PrincipalDetails(User user) {
 		super();
 		this.user = user;
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return user.getPassword();
@@ -49,12 +49,12 @@ public class PrincipalDetails implements UserDetails{
 	}
 
 	@Override
-	public boolean isEnabled() { // 계정 활성화 되어있는지 확인할 때 
+	public boolean isEnabled() { // 계정 활성화 되어있는지 확인할 때
 		return true;
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() { // 권한 
+	public Collection<? extends GrantedAuthority> getAuthorities() { // 권한
 		List<GrantedAuthority> authorities = new ArrayList<>();
 		authorities.add(new SimpleGrantedAuthority(user.getRole()));
 		System.out.println("PrincipalDetails 확인 : " + authorities);

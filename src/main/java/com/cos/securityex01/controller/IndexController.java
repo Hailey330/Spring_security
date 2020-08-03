@@ -1,6 +1,7 @@
 package com.cos.securityex01.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class IndexController {
 		return "유저 페이지입니다.";
 	}
 
+	// @PreAuthorize("hasRole('ROLE_ADMIN')")
+	@Secured("ROLE_ADMIN")
 	@GetMapping("/admin")
 	public @ResponseBody String admin() {
 		return "관리자 페이지입니다.";
@@ -55,9 +58,9 @@ public class IndexController {
 		String rawPassword = user.getPassword();
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
-		user.setRole("USER");
+		user.setRole("ROLE_USER");
 		UserRepository.save(user);
 		return "redirect:/";
 	}
-
+	
 }
